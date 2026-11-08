@@ -4,18 +4,12 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Hospede extends Pessoa {
-    private Acomodacao[] acomodacaosDisponiveis;
     private double avaliacao;
     private double avaliacaoMedia;
 
 
     public Hospede(String cpf, String nome, LocalDate dataNascimento, String telefone) throws RegraNegocioException {
         super(cpf, nome, dataNascimento, telefone);
-    }
-
-
-    public Acomodacao[] listar() {
-        return acomodacaosDisponiveis;
     }
 
     public double avaliarHospedagem() {

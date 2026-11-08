@@ -6,11 +6,4 @@ public class Anfitriao extends Pessoa {
     public Anfitriao(String nome, String cpf, LocalDate dataNascimento, String telefone) throws RegraNegocioException {
         super(nome, cpf, dataNascimento, telefone);
     }
-
-    public Acomodacao[] listar(){
-
-        return oferta;
-    }
-
-
 }

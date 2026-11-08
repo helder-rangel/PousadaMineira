@@ -21,8 +21,6 @@ public abstract class Pessoa {
     }
     Scanner ent = new Scanner(System.in);
 
-    public abstract Acomodacao[] listar();
-
     public void setCpf(String cpf) {
         if(cpf != null && !cpf.isBlank()){
             this.cpf = cpf.strip();
