@@ -8,18 +8,18 @@ class PousadaService {
     private List<Reserva> reservas = new ArrayList<>();
     private double faturamentoTotal = 0.0;
 
-    public PousadaService() {
+ /**   public PousadaService() {
         // Acomodações padrão pré-cadastradas
         acomodacoes.add(new Acomodacao(101, TipoAcomodacao.QUARTO_SIMPLES));
         acomodacoes.add(new Acomodacao(102, TipoAcomodacao.SUITE));
         acomodacoes.add(new Acomodacao(103, TipoAcomodacao.CHALE));
     }
-
-    public void cadastrarHospede(String cpf, String nome) {
+*/
+    public void cadastrarHospede(String cpf, String nome, LocalDate dataNascimento, String telefone) throws RegraNegocioException {
         if (buscarHospede(cpf) != null) {
             throw new IllegalArgumentException("Hóspede já cadastrado com este CPF.");
         }
-        hospedes.add(new Hospede(cpf, nome));
+        hospedes.add(new Hospede(cpf, nome, dataNascimento, telefone));
     }
 
     public Hospede buscarHospede(String cpf) {
@@ -29,9 +29,9 @@ class PousadaService {
         return null;
     }
 
-    public Acomodacao buscarAcomodacao(int numero) {
+    public Acomodacao buscarAcomodacao(int id) {
         for (Acomodacao a : acomodacoes) {
-            if (a.getNumero() == numero) return a;
+            if (a.getid() == id) return a;
         }
         return null;
     }
@@ -67,7 +67,7 @@ class PousadaService {
 
         // Regra: Acomodação já reservada nas datas (choque de datas)
         for (Reserva r : reservas) {
-            if (r.isAtiva() && r.getAcomodacao().getNumero() == numAcomodacao) {
+            if (r.isAtiva() && r.getAcomodacao().getid() == numAcomodacao) {
                 boolean sobrepoe = entrada.isBefore(r.getDataSaida()) && saida.isAfter(r.getDataEntrada());
                 if (sobrepoe) {
                     throw new IllegalArgumentException("Regra Violada: Acomodação já está reservada no período solicitado.");

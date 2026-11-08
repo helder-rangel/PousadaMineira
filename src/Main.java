@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Main {
@@ -35,7 +36,7 @@ public class Main {
                     default -> System.out.println("Opção inválida! Tente novamente.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Erro: Por favor, digite um número válido.");
+                System.out.println("Erro: Favor informar um número válido.");
             } catch (Exception e) {
                 System.out.println("ERRO: " + e.getMessage());
             }
@@ -47,8 +48,20 @@ public class Main {
         String cpf = scanner.nextLine();
         System.out.print("Nome do hóspede: ");
         String nome = scanner.nextLine();
+        System.out.print("Data de nascimento do hóspede: ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate dataNascimento = null;
+        while(dataNascimento == null) {
+        String entrada = scanner.nextLine();
+        try {
+            dataNascimento = LocalDate.parse(entrada, formatter);
+        } catch (DateTimeParseException e) {
+            System.out.println("Formato inválido! Tente novamente no formato dd/MM/yyyy.");
+        }
+        System.out.print("Telefone do hóspede: ");
+        String telefone = scanner.nextLine();
 
-        service.cadastrarHospede(cpf, nome);
+        service.cadastrarHospede(cpf, nome, dataNascimento, telefone);
         System.out.println(">> Hóspede cadastrado com sucesso!");
     }
 
@@ -58,7 +71,7 @@ public class Main {
 
         System.out.println("\nAcomodações disponíveis:");
         for (Acomodacao a : service.getAcomodacoes()) {
-            System.out.println(" - N° " + a.getNumero() + " | " + a.getTipo().getDescricao() +
+            System.out.println(" - N° " + a.getid() + " | " + a.getTipo().getDescricao() +
                     " | Cap: " + a.getTipo().getCapacidade() + " pessoas | R$ " + a.getTipo().getValorDiaria() + "/dia");
         }
         System.out.print("Número da acomodação: ");
